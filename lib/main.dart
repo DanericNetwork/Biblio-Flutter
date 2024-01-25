@@ -103,6 +103,17 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.home_outlined), // replace with your desired icon
+              color: Colors.grey[300],
+              style: ButtonStyle(
+                // this backgroundColor makes it usable on any background color, here set to transparent
+                iconSize: MaterialStateProperty.all(40.0),
+              ),
+              onPressed: () {
+                // handle your button tap here
+              },
+            ),
             Expanded(
               child: Container(
                 height: 50.0,
@@ -119,6 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Search Book',
+                      contentPadding: EdgeInsets.all(10.0),
                     ),
                   ),
                 ),

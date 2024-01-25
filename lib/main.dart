@@ -125,8 +125,12 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             IconButton(
-              icon: const Icon(Icons.qr_code_scanner), // replace with your desired icon
+              icon: const Icon(Icons.qr_code_2), // replace with your desired icon
               color: Colors.grey[300],
+              style: ButtonStyle(
+                // this backgroundColor makes it usable on any background color, here set to transparent
+                iconSize: MaterialStateProperty.all(40.0),
+              ),
               onPressed: () {
                 // handle your button tap here
               },

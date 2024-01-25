@@ -105,23 +105,27 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Expanded(
               child: Container(
-                // text inside the container
                 height: 50.0,
-                color: Colors.grey[300],
-                // text color white
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(10.0), // this makes the corners rounded
+                ),
                 child: const Center(
-                  child: Text(
-                    'Search Book',
+                  child: TextField(
                     style: TextStyle(
-                        fontSize: 20.0,
-                        color: Colors.black,
+                      fontSize: 20.0,
+                      color: Colors.black,
+                    ),
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'Search Book',
                     ),
                   ),
                 ),
               ),
             ),
             IconButton(
-              icon: Icon(Icons.qr_code_scanner), // replace with your desired icon
+              icon: const Icon(Icons.qr_code_scanner), // replace with your desired icon
               color: Colors.grey[300],
               onPressed: () {
                 // handle your button tap here

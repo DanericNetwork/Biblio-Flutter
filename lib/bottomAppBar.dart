@@ -24,15 +24,10 @@ class CustomBottomAppBar extends StatelessWidget {
             icon: const Icon(Icons.home_outlined),
             color: Colors.grey[300],
             style: ButtonStyle(
-              // this backgroundColor makes it usable on any background color, here set to transparent
               iconSize: MaterialStateProperty.all(40.0),
             ),
             onPressed: () {
-            //   go to home page
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const MyHomePage(title: 'Biblio')),
-            );
+            Navigator.of(context).popUntil((route) => route.isFirst);
             },
           ),
           Expanded(

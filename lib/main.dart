@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 
 // Import pages
 import 'camera.dart';
-import 'testingPage.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

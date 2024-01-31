@@ -77,7 +77,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     List<CameraDescription> camera = widget.cameras;
-    print('Build stukkie ${camera}');
+    print('Build cam ${camera}');
+    print('Build cam 2 ${camera.first}');
     // CameraDescription camera = widget.cameras.first;
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
@@ -164,15 +165,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const TakePictureScreen(
-                    // Use the default camera
-                    // camera: camera.first,
-                    camera: CameraDescription(
-                      name: '0',
-                      lensDirection: CameraLensDirection.back,
-                      sensorOrientation: 90,
-                    ),
-                  )),
+                      builder: (context) => TakePictureScreen(
+                            camera: camera.first,
+                          )),
                 );
               },
             ),

@@ -1,8 +1,14 @@
 import 'package:biblio_app/bottomAppBar.dart';
 import 'package:flutter/material.dart';
+import 'package:camera/camera.dart';
 
 class bookPage extends StatelessWidget {
-  const bookPage({super.key});
+  const bookPage({
+    super.key,
+    required this.cameras
+  });
+
+  final List<CameraDescription> cameras;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +59,7 @@ class bookPage extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: const CustomBottomAppBar(),
+      bottomNavigationBar: CustomBottomAppBar(cameras: cameras,),
     );
   }
 }

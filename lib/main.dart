@@ -1,30 +1,51 @@
+import 'dart:async';
+import 'dart:io';
+
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'bookPage.dart';
 import 'bottomAppBar.dart';
+import 'camera.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  List<CameraDescription> cameras = await availableCameras();
+
+  CameraDescription firstCamera = cameras.first;
+
+  runApp(MyApp(
+    cameras: cameras,
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({
+    super.key,
+    required this.cameras,
+  });
+
+  List<CameraDescription> cameras;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Biblio App',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Biblio'),
+      home: MyHomePage(
+        title: 'Biblio',
+        cameras: cameras,
+      ),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  MyHomePage({super.key, required this.title, required this.cameras});
 
+  List<CameraDescription> cameras;
   final String title;
 
   @override
@@ -32,16 +53,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    List<CameraDescription> camera = widget.cameras;
+
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Color.fromRGBO(30,36,56, 1)),
@@ -57,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ),
-      bottomNavigationBar: const CustomBottomAppBar(),
+      bottomNavigationBar: CustomBottomAppBar(cameras: camera),
     );
   }
 }

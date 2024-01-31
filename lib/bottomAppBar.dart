@@ -1,9 +1,16 @@
-import 'package:biblio_app/main.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+
 import 'bookPage.dart';
+import 'camera.dart';
 
 class CustomBottomAppBar extends StatelessWidget {
-  const CustomBottomAppBar({Key? key}) : super(key: key);
+  const CustomBottomAppBar({
+    Key? key,
+    required this.cameras
+  }) : super(key: key);
+
+  final List<CameraDescription> cameras;
 
   @override
   Widget build(BuildContext context) {
@@ -17,15 +24,10 @@ class CustomBottomAppBar extends StatelessWidget {
             icon: const Icon(Icons.home_outlined),
             color: Colors.grey[300],
             style: ButtonStyle(
-              // this backgroundColor makes it usable on any background color, here set to transparent
               iconSize: MaterialStateProperty.all(40.0),
             ),
             onPressed: () {
-            //   go to home page
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const MyHomePage(title: 'Biblio')),
-            );
+            Navigator.of(context).popUntil((route) => route.isFirst);
             },
           ),
           Expanded(
@@ -59,7 +61,9 @@ class CustomBottomAppBar extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const bookPage()),
+                MaterialPageRoute(builder: (context) => TakePictureScreen(
+                  camera: cameras.first,
+                )),
               );
             },
           ),

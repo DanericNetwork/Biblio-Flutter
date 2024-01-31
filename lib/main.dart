@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'bookPage.dart';
+import 'bottomAppBar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -81,6 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // TRY THIS: Try changing the color here to a specific color (to
         // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
         // change color while the other colors stay the same.
+        iconTheme: const IconThemeData(color: Color.fromRGBO(30,36,56, 1)),
         backgroundColor: const Color.fromRGBO(30,36,56, 1),
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
@@ -97,59 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        color: const Color.fromRGBO(30,36,56, 1),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.home_outlined), // replace with your desired icon
-              color: Colors.grey[300],
-              style: ButtonStyle(
-                // this backgroundColor makes it usable on any background color, here set to transparent
-                iconSize: MaterialStateProperty.all(40.0),
-              ),
-              onPressed: () {
-                // handle your button tap here
-              },
-            ),
-            Expanded(
-              child: Container(
-                height: 50.0,
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(10.0), // this makes the corners rounded
-                ),
-                child: const Center(
-                  child: TextField(
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      color: Colors.black,
-                    ),
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Search Book',
-                      contentPadding: EdgeInsets.all(10.0),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            IconButton(
-              icon: const Icon(Icons.qr_code_2), // replace with your desired icon
-              color: Colors.grey[300],
-              style: ButtonStyle(
-                // this backgroundColor makes it usable on any background color, here set to transparent
-                iconSize: MaterialStateProperty.all(40.0),
-              ),
-              onPressed: () {
-                // handle your button tap here
-              },
-            ),
-          ],
-        ),
-      ),
+      bottomNavigationBar: const CustomBottomAppBar(),
     );
   }
 }

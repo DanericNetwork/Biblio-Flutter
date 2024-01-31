@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
-// Import pages
 import 'camera.dart';
 
 Future<void> main() async {
@@ -26,7 +25,6 @@ class MyApp extends StatelessWidget {
 
   List<CameraDescription> cameras;
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

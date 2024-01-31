@@ -14,14 +14,13 @@ class CustomBottomAppBar extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           IconButton(
-            icon: const Icon(Icons.home_outlined), // replace with your desired icon
+            icon: const Icon(Icons.home_outlined),
             color: Colors.grey[300],
             style: ButtonStyle(
               // this backgroundColor makes it usable on any background color, here set to transparent
               iconSize: MaterialStateProperty.all(40.0),
             ),
             onPressed: () {
-              // handle your button tap here
             //   go to home page
             Navigator.push(
               context,
@@ -52,10 +51,9 @@ class CustomBottomAppBar extends StatelessWidget {
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.qr_code_2), // replace with your desired icon
+            icon: const Icon(Icons.qr_code_2),
             color: Colors.grey[300],
             style: ButtonStyle(
-              // this backgroundColor makes it usable on any background color, here set to transparent
               iconSize: MaterialStateProperty.all(40.0),
             ),
             onPressed: () {
@@ -63,7 +61,6 @@ class CustomBottomAppBar extends StatelessWidget {
                 context,
                 MaterialPageRoute(builder: (context) => const bookPage()),
               );
-              // handle your button tap here
             },
           ),
         ],

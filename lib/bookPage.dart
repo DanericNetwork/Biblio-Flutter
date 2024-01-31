@@ -1,7 +1,6 @@
 import 'package:biblio_app/bottomAppBar.dart';
 import 'package:flutter/material.dart';
 
-// Create a new screen
 class bookPage extends StatelessWidget {
   const bookPage({super.key});
 

@@ -3,7 +3,8 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-
+import 'bookPage.dart';
+import 'bottomAppBar.dart';
 import 'camera.dart';
 
 Future<void> main() async {
@@ -58,7 +59,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(30, 36, 56, 1),
+        iconTheme: const IconThemeData(color: Color.fromRGBO(30,36,56, 1)),
+        backgroundColor: const Color.fromRGBO(30,36,56, 1),
         title: Text(widget.title, style: TextStyle(color: Colors.grey[300])),
       ),
       body: const Center(
@@ -70,66 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        color: const Color.fromRGBO(30, 36, 56, 1),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            IconButton(
-              icon: const Icon(
-                  Icons.home_outlined),
-              color: Colors.grey[300],
-              style: ButtonStyle(
-                iconSize: MaterialStateProperty.all(40.0),
-              ),
-              onPressed: () {
-                // 
-              },
-            ),
-            Expanded(
-              child: Container(
-                height: 50.0,
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(
-                      10.0),
-                ),
-                child: const Center(
-                  child: TextField(
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      color: Colors.black,
-                    ),
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Search Book',
-                      contentPadding: EdgeInsets.all(10.0),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            IconButton(
-              icon:
-                  const Icon(Icons.qr_code_2),
-              color: Colors.grey[300],
-              style: ButtonStyle(
-                iconSize: MaterialStateProperty.all(40.0),
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                  builder: (context) => TakePictureScreen(
-                    camera: camera.first,
-                  )),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
+      bottomNavigationBar: const CustomBottomAppBar(),
     );
   }
 }

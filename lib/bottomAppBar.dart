@@ -32,8 +32,9 @@ class CustomBottomAppBar extends StatelessWidget {
             style: ButtonStyle(
               iconSize: MaterialStateProperty.all(40.0),
             ),
-            onPressed: () {
+            onPressed: () async {
               Navigator.of(context).popUntil((route) => route.isFirst);
+              await searchBooks(_controller.text);
             },
           ),
           Expanded(
@@ -55,6 +56,7 @@ class CustomBottomAppBar extends StatelessWidget {
                     hintText: 'Search Book',
                     contentPadding: EdgeInsets.all(10.0),
                   ),
+                  onTap: () async => await searchBooks(_controller.text),
                   onSubmitted: (String value) async {
                     await searchBooks(value);
                   },

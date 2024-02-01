@@ -15,6 +15,10 @@ class BarcodeScanner {
     } on PlatformException {
       _scanBarcode = 'Failed to get platform version.';
     }
+
+    if (_scanBarcode == '-1') {
+      _scanBarcode = 'Canceled by user';
+    }
   }
 
   String getBarcode() {

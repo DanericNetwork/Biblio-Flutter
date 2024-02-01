@@ -1,16 +1,21 @@
+import 'package:biblio_app/main.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
 import 'bookPage.dart';
 import 'camera.dart';
 
+import 'package:biblio_app/main.dart';  // Add this line
+
 class CustomBottomAppBar extends StatelessWidget {
   const CustomBottomAppBar({
     Key? key,
-    required this.cameras
+    required this.cameras,
+    required this.reloadBooks,
   }) : super(key: key);
 
   final List<CameraDescription> cameras;
+  final Function reloadBooks;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +32,7 @@ class CustomBottomAppBar extends StatelessWidget {
               iconSize: MaterialStateProperty.all(40.0),
             ),
             onPressed: () {
-            Navigator.of(context).popUntil((route) => route.isFirst);
+              Navigator.of(context).popUntil((route) => route.isFirst);
             },
           ),
           Expanded(
@@ -61,9 +66,7 @@ class CustomBottomAppBar extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => TakePictureScreen(
-                  camera: cameras.first,
-                )),
+                MaterialPageRoute(builder: (context) => BookForm(reloadBooks: reloadBooks)),
               );
             },
           ),

@@ -80,13 +80,25 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Color.fromRGBO(30,36,56, 1)),
-        backgroundColor: const Color.fromRGBO(30,36,56, 1),
+        backgroundColor:   const Color.fromRGBO(30,36,56, 1),
         title: Text(widget.title, style: TextStyle(color: Colors.grey[300])),
       ),
       body: ListView.builder(
-        itemCount: books.length,
+        itemCount: books.length + 1,
         itemBuilder: (context, index) {
-          final book = books[index];
+          if (index == 0) {
+            return const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text('Book', style: TextStyle(fontSize: 20.0)),
+                  Text('Available', style: TextStyle(fontSize: 20.0)),
+                ],
+              ),
+            );
+          }
+          final book = books[index - 1];
           return ListTile(
             title: Text(book.title),
             subtitle: Text(book.author),

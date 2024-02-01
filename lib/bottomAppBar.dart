@@ -71,9 +71,10 @@ class CustomBottomAppBar extends StatelessWidget {
               iconSize: MaterialStateProperty.all(40.0),
             ),
             onPressed: () async {
-              await barcodeScanner.scanBarcodeNormal();
-              _scanBarcode = barcodeScanner.getBarcode();
-              txt.text = _scanBarcode;
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => BookForm(reloadBooks: reloadBooks)),
+              );
             },
           ),
         ],

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:biblio_app/barcodeScanner.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'bookPage.dart';
@@ -39,7 +40,9 @@ class MyApp extends StatelessWidget {
         cameras: cameras,
       ),
       routes: {
-        '/bookPage': (context) => bookPage(cameras: cameras,),
+        '/bookPage': (context) => bookPage(
+              cameras: cameras,
+            ),
         '/camera': (context) => TakePictureScreen(camera: cameras.first),
       },
     );
@@ -80,8 +83,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        iconTheme: const IconThemeData(color: Color.fromRGBO(30,36,56, 1)),
-        backgroundColor: const Color.fromRGBO(30,36,56, 1),
+        iconTheme: const IconThemeData(color: Color.fromRGBO(30, 36, 56, 1)),
+        backgroundColor: const Color.fromRGBO(30, 36, 56, 1),
         title: Text(widget.title, style: TextStyle(color: Colors.grey[300])),
       ),
       body: ListView.builder(
@@ -94,7 +97,9 @@ class _MyHomePageState extends State<MyHomePage> {
             leading: Image.network(book.image),
             trailing: IconButton(
               icon: Icon(
-                book.available ? Icons.check_box : Icons.check_box_outline_blank,
+                book.available
+                    ? Icons.check_box
+                    : Icons.check_box_outline_blank,
                 color: book.available ? Colors.green : Colors.red,
               ),
               onPressed: () async {
@@ -109,7 +114,8 @@ class _MyHomePageState extends State<MyHomePage> {
           );
         },
       ),
-      bottomNavigationBar: CustomBottomAppBar(cameras: camera, reloadBooks: reloadBooks),
+      bottomNavigationBar:
+          CustomBottomAppBar(cameras: camera, reloadBooks: reloadBooks),
     );
   }
 }
@@ -121,7 +127,12 @@ class Book {
   final String author;
   bool available;
 
-  Book({required this.title, required this.image, required this.isbn, required this.author, this.available = true});
+  Book(
+      {required this.title,
+      required this.image,
+      required this.isbn,
+      required this.author,
+      this.available = true});
 
   // Convert a Book to a Map
   Map<String, dynamic> toMap() {
@@ -137,12 +148,11 @@ class Book {
   // Convert a Map to a Book
   static Book fromMap(Map<String, dynamic> map) {
     return Book(
-      title: map['title'],
-      image: map['image'],
-      isbn: map['isbn'],
-      author: map['author'],
-      available: map['available'] ?? true
-    );
+        title: map['title'],
+        image: map['image'],
+        isbn: map['isbn'],
+        author: map['author'],
+        available: map['available'] ?? true);
   }
 }
 
@@ -207,15 +217,33 @@ class _BookFormState extends State<BookForm> {
                 return null;
               },
             ),
-            TextFormField(
-              controller: _isbnController,
-              decoration: InputDecoration(labelText: 'ISBN'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter an ISBN';
-                }
-                return null;
-              },
+            Row(
+              children: [
+                Expanded(
+                  child: TextFormField(
+                    controller: _isbnController,
+                    decoration: InputDecoration(
+                      labelText: 'Barcode'
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter an barcode';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(Icons.qr_code),
+                  onPressed: () async {
+                    BarcodeScanner scanner = BarcodeScanner();
+                    await scanner.scanBarcodeNormal();
+                    setState(() {
+                      _isbnController.text = scanner.getBarcode();
+                    }); 
+                  },
+                ),
+              ],
             ),
             TextFormField(
               controller: _authorController,
@@ -234,7 +262,8 @@ class _BookFormState extends State<BookForm> {
                     title: _titleController.text,
                     image: _imageController.text,
                     isbn: _isbnController.text,
-                    author: _authorController.text, available: true,
+                    author: _authorController.text,
+                    available: true,
                   );
                   List<Book> books = await BookService.loadBooks();
                   books.add(newBook);

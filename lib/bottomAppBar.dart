@@ -6,7 +6,7 @@ class CustomBottomAppBar extends StatelessWidget {
 
   final TextEditingController _controller = TextEditingController();
 
-  const CustomBottomAppBar({
+  CustomBottomAppBar({
     Key? key,
     required this.cameras,
     required this.reloadBooks,

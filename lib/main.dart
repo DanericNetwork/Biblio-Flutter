@@ -61,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
               left: 0,
               right: 0,
               child: BookModal(
-                bookTitle: 'Harry Potter',
+                bookTitle: 'Harry potter',
                 author: 'J.K. Rowling',
               ),
             ),

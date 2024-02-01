@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:biblio_app/barcodeScanner.dart';
+import 'package:biblio_app/bookPage.dart';
+import 'package:biblio_app/camera.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'bookPage.dart';
 import 'bottomAppBar.dart';
-import 'camera.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
@@ -73,6 +73,11 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {});
   }
 
+  void searchBooks(String search) async {
+    books = await BookService.searchBooks(search);
+    setState(() {});
+  }
+
   void reloadBooks() {
     loadBooks();
   }
@@ -83,14 +88,26 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        iconTheme: const IconThemeData(color: Color.fromRGBO(30, 36, 56, 1)),
-        backgroundColor: const Color.fromRGBO(30, 36, 56, 1),
+        iconTheme: const IconThemeData(color: Color.fromRGBO(30,36,56, 1)),
+        backgroundColor:   const Color.fromRGBO(30,36,56, 1),
         title: Text(widget.title, style: TextStyle(color: Colors.grey[300])),
       ),
       body: ListView.builder(
-        itemCount: books.length,
+        itemCount: books.length + 1,
         itemBuilder: (context, index) {
-          final book = books[index];
+          if (index == 0) {
+            return const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text('Book', style: TextStyle(fontSize: 20.0)),
+                  Text('Available', style: TextStyle(fontSize: 20.0)),
+                ],
+              ),
+            );
+          }
+          final book = books[index - 1];
           return ListTile(
             title: Text(book.title),
             subtitle: Text(book.author),
@@ -114,8 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
           );
         },
       ),
-      bottomNavigationBar:
-          CustomBottomAppBar(cameras: camera, reloadBooks: reloadBooks),
+      bottomNavigationBar: CustomBottomAppBar(cameras: camera, reloadBooks: reloadBooks, searchBooks: searchBooks),
     );
   }
 }
@@ -168,6 +184,17 @@ class BookService {
     final booksString = prefs.getString('books') ?? '[]';
     final booksList = jsonDecode(booksString) as List;
     return booksList.map((bookMap) => Book.fromMap(bookMap)).toList();
+  }
+
+  static Future<List<Book>> searchBooks(String search) async {
+    List<Book> books = await BookService.loadBooks();
+
+    // search on title, description, author and isbn
+    return books.where((book) =>
+    book.title.toLowerCase().contains(search.toLowerCase()) ||
+        book.author.toLowerCase().contains(search.toLowerCase()) ||
+        book.isbn.toLowerCase().contains(search.toLowerCase()))
+        .toList();
   }
 }
 

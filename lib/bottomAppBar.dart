@@ -8,12 +8,13 @@ import 'package:biblio_app/main.dart';  // Add this line
 
 class CustomBottomAppBar extends StatelessWidget {
 
-  final BarcodeScanner barcodeScanner = BarcodeScanner();
+  final TextEditingController _controller = TextEditingController();
 
   CustomBottomAppBar({
     Key? key,
     required this.cameras,
     required this.reloadBooks,
+    required this.searchBooks,
   }) : super(key: key);
 
   final List<CameraDescription> cameras;
@@ -22,6 +23,8 @@ class CustomBottomAppBar extends StatelessWidget {
 
   TextEditingController txt = TextEditingController();
   final Function reloadBooks;
+  final Function searchBooks;
+
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +40,9 @@ class CustomBottomAppBar extends StatelessWidget {
             style: ButtonStyle(
               iconSize: MaterialStateProperty.all(40.0),
             ),
-            onPressed: () {
+            onPressed: () async {
               Navigator.of(context).popUntil((route) => route.isFirst);
+              await searchBooks(_controller.text);
             },
           ),
           Expanded(
@@ -49,17 +53,23 @@ class CustomBottomAppBar extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.0), // this makes the corners rounded
               ),
               child: Center(
-                child: TextField(
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    color: Colors.black,
+                child: Center(
+                  child: TextField(
+                    controller: _controller,
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      color: Colors.black,
+                    ),
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'Search Book',
+                      contentPadding: EdgeInsets.all(10.0),
+                    ),
+                    onTap: () async => await searchBooks(_controller.text),
+                    onSubmitted: (String value) async {
+                      await searchBooks(value);
+                    },
                   ),
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: 'Search Book',
-                    contentPadding: EdgeInsets.all(10.0),
-                  ),
-                  controller: txt,
                 ),
               ),
             ),

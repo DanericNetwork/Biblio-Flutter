@@ -129,7 +129,7 @@ class Book {
       'image': image,
       'isbn': isbn,
       'author': author,
-      'available': true,
+      'available': available,
     };
   }
 

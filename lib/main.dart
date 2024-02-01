@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:biblio_app/barcodeScanner.dart';
+import 'package:biblio_app/bookPage.dart';
+import 'package:biblio_app/camera.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'bottomAppBar.dart';

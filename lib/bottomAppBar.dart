@@ -2,6 +2,10 @@ import 'package:biblio_app/main.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
+import 'barcodeScanner.dart';
+
+import 'package:biblio_app/main.dart';  // Add this line
+
 class CustomBottomAppBar extends StatelessWidget {
 
   final TextEditingController _controller = TextEditingController();
@@ -14,6 +18,10 @@ class CustomBottomAppBar extends StatelessWidget {
   }) : super(key: key);
 
   final List<CameraDescription> cameras;
+
+  String _scanBarcode = '';
+
+  TextEditingController txt = TextEditingController();
   final Function reloadBooks;
   final Function searchBooks;
 
@@ -45,6 +53,7 @@ class CustomBottomAppBar extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.0), // this makes the corners rounded
               ),
               child: Center(
+              child: Center(
                 child: TextField(
                   controller: _controller,
                   style: TextStyle(
@@ -65,12 +74,12 @@ class CustomBottomAppBar extends StatelessWidget {
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.qr_code_2),
+            icon: const Icon(Icons.add),
             color: Colors.grey[300],
             style: ButtonStyle(
               iconSize: MaterialStateProperty.all(40.0),
             ),
-            onPressed: () {
+            onPressed: () async {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => BookForm(reloadBooks: reloadBooks)),

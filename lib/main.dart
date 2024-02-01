@@ -1,11 +1,8 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'bookPage.dart';
 import 'bottomAppBar.dart';
-import 'camera.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
@@ -69,6 +66,11 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {});
   }
 
+  void searchBooks(String search) async {
+    books = await BookService.searchBooks(search);
+    setState(() {});
+  }
+
   void reloadBooks() {
     loadBooks();
   }
@@ -108,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
           );
         },
       ),
-      bottomNavigationBar: CustomBottomAppBar(cameras: camera, reloadBooks: reloadBooks),
+      bottomNavigationBar: CustomBottomAppBar(cameras: camera, reloadBooks: reloadBooks, searchBooks: searchBooks),
     );
   }
 }
@@ -157,6 +159,17 @@ class BookService {
     final booksString = prefs.getString('books') ?? '[]';
     final booksList = jsonDecode(booksString) as List;
     return booksList.map((bookMap) => Book.fromMap(bookMap)).toList();
+  }
+
+  static Future<List<Book>> searchBooks(String search) async {
+    List<Book> books = await BookService.loadBooks();
+
+    // search on title, description, author and isbn
+    return books.where((book) =>
+    book.title.toLowerCase().contains(search.toLowerCase()) ||
+        book.author.toLowerCase().contains(search.toLowerCase()) ||
+        book.isbn.toLowerCase().contains(search.toLowerCase()))
+        .toList();
   }
 }
 

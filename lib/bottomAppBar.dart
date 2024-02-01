@@ -2,20 +2,21 @@ import 'package:biblio_app/main.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
-import 'bookPage.dart';
-import 'camera.dart';
-
-import 'package:biblio_app/main.dart';  // Add this line
-
 class CustomBottomAppBar extends StatelessWidget {
+
+  final TextEditingController _controller = TextEditingController();
+
   const CustomBottomAppBar({
     Key? key,
     required this.cameras,
     required this.reloadBooks,
+    required this.searchBooks,
   }) : super(key: key);
 
   final List<CameraDescription> cameras;
   final Function reloadBooks;
+  final Function searchBooks;
+
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +43,9 @@ class CustomBottomAppBar extends StatelessWidget {
                 color: Colors.grey[300],
                 borderRadius: BorderRadius.circular(10.0), // this makes the corners rounded
               ),
-              child: const Center(
+              child: Center(
                 child: TextField(
+                  controller: _controller,
                   style: TextStyle(
                     fontSize: 20.0,
                     color: Colors.black,
@@ -53,6 +55,9 @@ class CustomBottomAppBar extends StatelessWidget {
                     hintText: 'Search Book',
                     contentPadding: EdgeInsets.all(10.0),
                   ),
+                  onSubmitted: (String value) async {
+                    await searchBooks(value);
+                  },
                 ),
               ),
             ),

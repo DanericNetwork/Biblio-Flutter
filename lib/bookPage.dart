@@ -91,7 +91,7 @@ class _bookPageState extends State<bookPage> {
           ),
         ],
       ),
-      bottomNavigationBar: CustomBottomAppBar(cameras: widget.cameras, reloadBooks: () {},)
+      bottomNavigationBar: CustomBottomAppBar(cameras: widget.cameras, reloadBooks: () {}, searchBooks: (String search) {},),
     );
   }
 }

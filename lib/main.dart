@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +12,6 @@ import 'dart:convert';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   List<CameraDescription> cameras = await availableCameras();
-
-  // CameraDescription firstCamera = cameras.first;
 
   runApp(MyApp(
     cameras: cameras,
@@ -41,6 +38,10 @@ class MyApp extends StatelessWidget {
         title: 'Biblio',
         cameras: cameras,
       ),
+      routes: {
+        '/bookPage': (context) => bookPage(cameras: cameras,),
+        '/camera': (context) => TakePictureScreen(camera: cameras.first),
+      },
     );
   }
 }

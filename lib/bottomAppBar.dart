@@ -53,22 +53,23 @@ class CustomBottomAppBar extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.0), // this makes the corners rounded
               ),
               child: Center(
-              child: Center(
-                child: TextField(
-                  controller: _controller,
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    color: Colors.black,
+                child: Center(
+                  child: TextField(
+                    controller: _controller,
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      color: Colors.black,
+                    ),
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'Search Book',
+                      contentPadding: EdgeInsets.all(10.0),
+                    ),
+                    onTap: () async => await searchBooks(_controller.text),
+                    onSubmitted: (String value) async {
+                      await searchBooks(value);
+                    },
                   ),
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: 'Search Book',
-                    contentPadding: EdgeInsets.all(10.0),
-                  ),
-                  onTap: () async => await searchBooks(_controller.text),
-                  onSubmitted: (String value) async {
-                    await searchBooks(value);
-                  },
                 ),
               ),
             ),

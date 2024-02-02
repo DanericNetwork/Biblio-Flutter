@@ -108,25 +108,49 @@ class _MyHomePageState extends State<MyHomePage> {
             );
           }
           final book = books[index - 1];
-          return ListTile(
-            title: Text(book.title),
-            subtitle: Text(book.author),
-            leading: Image.network(book.image),
-            trailing: IconButton(
-              icon: Icon(
-                book.available
-                    ? Icons.check_box
-                    : Icons.check_box_outline_blank,
-                color: book.available ? Colors.green : Colors.red,
+          return Dismissible(
+            key: Key(book.isbn),
+            direction: DismissDirection.endToStart,
+            onDismissed: (direction) async {
+              int bookIndex = books.indexWhere((b) => b.isbn == book.isbn);
+              setState(() {
+                books.removeAt(bookIndex);
+              });
+              await BookService.saveBooks(books);
+            },
+            background: Container(
+              color: Colors.red,
+              child: const Align(
+                alignment: Alignment.centerRight,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Icon(Icons.delete, color: Colors.white),
+                    Text(" Delete", style: TextStyle(color: Colors.white)),
+                  ],
+                ),
               ),
-              onPressed: () async {
-                int bookIndex = books.indexWhere((b) => b.isbn == book.isbn);
-                setState(() {
-                  books[bookIndex].available = !books[bookIndex].available;
-                });
-                await BookService.saveBooks(books);
-                print(jsonEncode(books.map((book) => book.toMap()).toList()));
-              },
+            ),
+            child: ListTile(
+              title: Text(book.title),
+              subtitle: Text(book.author),
+              leading: Image.network(book.image),
+              trailing: IconButton(
+                icon: Icon(
+                  book.available
+                      ? Icons.check_box
+                      : Icons.check_box_outline_blank,
+                  color: book.available ? Colors.green : Colors.red,
+                ),
+                onPressed: () async {
+                  int bookIndex = books.indexWhere((b) => b.isbn == book.isbn);
+                  setState(() {
+                    books[bookIndex].available = !books[bookIndex].available;
+                  });
+                  await BookService.saveBooks(books);
+                  print(jsonEncode(books.map((book) => book.toMap()).toList()));
+                },
+              ),
             ),
           );
         },

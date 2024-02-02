@@ -19,12 +19,14 @@ samples, guidance on mobile development, and a full API reference.
 
 PvE : Klik [hier](https://github.com/DanericNetwork/Biblio-App/blob/master/docs/PO_klant_gesprek_20-11.md)
 
-PvA : link
+PvA : klik [hier](https://github.com/DanericNetwork/Biblio-App/wiki/Plan-van-aanpak)
 
 Functioneel Ontwerp (incl. versiebeheer) : klik [hier](https://github.com/DanericNetwork/Biblio-App/wiki/Functioneel-ontwerp)
 
 Technisch Ontwerp : klik [hier](https://github.com/DanericNetwork/Biblio-App/wiki/Technisch-Ontwerp)
 
 Link naar GIT repository met de code van de app : https://github.com/DanericNetwork/Biblio-flutter
+
+Testplan: klik [hier](https://github.com/DanericNetwork/Biblio-Flutter/blob/master/docs/Testplan%20flutter.docx)
 
 Testrapport : klik [hier](https://github.com/DanericNetwork/Biblio-Flutter/blob/master/docs/Testrapport%20Flutter%20App.docx)

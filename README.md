@@ -14,3 +14,17 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+## Alles voor het examen van flutter keuzedeel
+
+PvE : Klik [hier](https://github.com/DanericNetwork/Biblio-App/blob/master/docs/PO_klant_gesprek_20-11.md)
+
+PvA : link
+
+Functioneel Ontwerp (incl. versiebeheer) : klik [hier](https://github.com/DanericNetwork/Biblio-App/wiki/Functioneel-ontwerp)
+
+Technisch Ontwerp : klik [hier](https://github.com/DanericNetwork/Biblio-App/wiki/Technisch-Ontwerp)
+
+Link naar GIT repository met de code van de app : https://github.com/DanericNetwork/Biblio-flutter
+
+Testrapport : klik [hier](https://github.com/DanericNetwork/Biblio-Flutter/blob/master/docs/Testrapport%20Flutter%20App.docx)
